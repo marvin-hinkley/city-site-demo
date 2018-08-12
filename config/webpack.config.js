@@ -12,7 +12,7 @@ export default  {
   module: {
     rules: [
       {
-        test: /\.scss$/,
+        test: src\/\/\.scss$/,
         use: ExtractTextPlugin.extract(
           {
             fallback: 'style-loader',
@@ -23,9 +23,14 @@ export default  {
     ]
   },
   plugins: [
+    new ExtractTextPlugin(
+      {filename: './dist/style.css'}
+    ),
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
-    }),
-    new LiveReloadPlugin()
+      inject: false,
+      hash: true,
+      template: './src/index.html',
+      filename: 'index.html'
+    })
   ]
 };
