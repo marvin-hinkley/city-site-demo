@@ -63,3 +63,4 @@ yarn.lock
 
 # Compiled
 dist
+public

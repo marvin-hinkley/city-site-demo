@@ -4,7 +4,7 @@ var express     = require('express'),
     bodyParser  = require('body-parser'),
     fs          = require('fs');
 
-app.use(express.static('dist'));
+app.use(express.static('public'));
 app.use('/node_modules', express.static('node_modules'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -12,5 +12,5 @@ app.use(bodyParser.json());
 http.createServer(app).listen(3000, '0.0.0.0');
 
 app.get('/', function (req, res) {
-    res.sendfile('../dist/index.html');
+    res.sendfile('../public/index.html');
 });
