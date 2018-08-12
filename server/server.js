@@ -4,7 +4,7 @@ var express     = require('express'),
     bodyParser  = require('body-parser'),
     fs          = require('fs');
 
-app.use(express.static('build'));
+app.use(express.static('dist'));
 app.use('/node_modules', express.static('node_modules'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
