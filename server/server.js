@@ -12,5 +12,5 @@ app.use(bodyParser.json());
 http.createServer(app).listen(3000, '0.0.0.0');
 
 app.get('/', function (req, res) {
-    response.sendfile('../build/index.html');
+    res.sendfile('../dist/index.html');
 });
