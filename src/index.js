@@ -1,12 +1,14 @@
 import './index.scss';
-import './fb-login.js'
+import './fb-login.js';
 
-var goldHill = goldHill || {};
+(function(gh) {
+  gh.auth = {};
 
-(function (gh) {
-  gh.checkLoginState = function() {
+  gh.auth.checkLoginState = function() {
+    console.log('checking fb login state');
     FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
+      console.log('FB Auth Response', response);
+      //statusChangeCallback(response);
     });
   };
-})(goldHill);
+})(window.goldHill = window.goldHill || {});
