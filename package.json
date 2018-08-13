@@ -2,7 +2,8 @@
   "scripts": {
     "start": "node server/server.js",
     "dev": "webpack --mode development",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "watch": "webpack --watch"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
