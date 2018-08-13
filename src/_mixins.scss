@@ -1,0 +1,28 @@
+@import 'colors';
+
+$gh-opacity: (
+  'light': 0.8,
+  'dark': 0.4
+);
+
+@function gh-color($name: 'primary', $variant: $color-key, $opacity: 1) {
+  $color: null;
+
+  // Get the color spectrum
+  $color-spectrum: map-get($colors, $name);
+
+  // Get the color variant
+  @if $color-spectrum {
+    $color: map-get($color-spectrum, $variant);
+  }
+
+  // Get the alpha setting
+  $alpha: if(type-of($opacity) == 'number', $opacity, map-get($gh-opacity, $opacity));
+
+  // Set the alpha of the color
+  @if $alpha {
+    $color: rgba($color, $alpha);
+  }
+
+  @return $color;
+}

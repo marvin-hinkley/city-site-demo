@@ -1,5 +1,7 @@
-@import 'colors';
+@import '~bulma/bulma';
+@import 'mixins';
 
 html, body {
-  background-color: $gray;
+  background-color: gh-color('background');
+  color: gh-color('text');
 }
