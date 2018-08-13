@@ -4,28 +4,43 @@
   <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
 </head>
 <body>
-  <nav class="level">
-    <div class="level-left">
-      <div class="level-item">
-        <a href="" class="title">City of Gold Hill</a>
+  <div id="flex-container">
+    <nav>
+      <div class="level-left">
+        <span>City of Gold Hill</span>
       </div>
-    </div>
-    <div class="level-center">
-      <img src="https://firebasestorage.googleapis.com/v0/b/gold-hill-demo.appspot.com/o/gold-hill-logo.gif?alt=media&token=0cbc40ae-98a1-49dd-b705-278c4b104c77" />
-    </div>
-    <div class="level-right">
-      <div class="level-item">
-        <fb:login-button
-          class="navbar-item"
-          scope="public_profile,email"
-          onlogin="goldHill.auth.checkFacebookLoginState();">
-        </fb:login-button>
+        <img src="https://firebasestorage.googleapis.com/v0/b/gold-hill-demo.appspot.com/o/gold-hill-logo.gif?alt=media&token=0cbc40ae-98a1-49dd-b705-278c4b104c77" />
+      <div class="level-right">
+        <div class="level-item">
+          <fb:login-button
+            class="navbar-item"
+            scope="public_profile,email"
+            onlogin="goldHill.auth.checkFacebookLoginState();">
+          </fb:login-button>
+        </div>
+        <div class="level-item">
+          <a id="google-auth"><img src="https://firebasestorage.googleapis.com/v0/b/gold-hill-demo.appspot.com/o/btn_google_signin_dark_pressed_web.png?alt=media&token=bdd34e15-ad23-4830-9840-7a3920cad8d8" /></a>
+        </div>
       </div>
-      <div class="level-item">
-        <a id="google-auth"><img src="https://firebasestorage.googleapis.com/v0/b/gold-hill-demo.appspot.com/o/btn_google_signin_dark_pressed_web.png?alt=media&token=bdd34e15-ad23-4830-9840-7a3920cad8d8" /></a>
-      </div>
+    </nav>
+
+    <div id="body-container">
+      <p>
+        Spicy jalapeno bacon ipsum dolor amet capicola ribeye drumstick, alcatra shoulder picanha beef leberkas. Ham hock filet mignon meatball short ribs, shank ball tip tenderloin brisket short loin kevin burgdoggen cupim. Andouille pastrami cupim tenderloin picanha swine doner buffalo meatloaf boudin pork, corned beef pork chop. Tri-tip porchetta swine buffalo shankle drumstick. Shank beef ribs corned beef strip steak, chuck pastrami pig buffalo pork loin short ribs.
+
+Picanha fatback rump sausage. Biltong pastrami ground round swine. Bresaola beef shank, drumstick ham kevin meatball turkey ribeye leberkas t-bone pastrami capicola landjaeger kielbasa. Frankfurter salami bacon andouille cow ham hock spare ribs shankle burgdoggen sausage filet mignon.
+
+Fatback pork belly tenderloin pig drumstick porchetta. Turkey shankle chuck meatloaf cupim capicola sirloin brisket picanha. Shoulder turkey pastrami pork ham pig. Pig pork pancetta venison andouille turkey chuck, meatball pork chop. Bresaola pig spare ribs corned beef, pork pork loin filet mignon turducken pancetta ribeye porchetta venison meatloaf. Ham hock salami bresaola, filet mignon bacon strip steak drumstick sirloin cow cupim kielbasa burgdoggen capicola. Boudin ham hock picanha ribeye bresaola short loin.
+
+Frankfurter buffalo shoulder rump turducken pig jerky short loin. Landjaeger ball tip turducken capicola frankfurter bacon boudin short ribs brisket hamburger filet mignon t-bone spare ribs fatback. Prosciutto ham hock frankfurter venison, meatball beef ribs sirloin tenderloin cow jerky strip steak rump shank picanha. Filet mignon pork belly landjaeger hamburger beef ribs brisket.
+
+Burgdoggen biltong pancetta alcatra fatback drumstick spare ribs kielbasa meatloaf tongue pork belly cow tri-tip. Jowl tongue turkey tail, pastrami ribeye bresaola. Jowl chuck pork chop kielbasa capicola turducken. Landjaeger meatball ground round pig turkey doner ham frankfurter pancetta picanha tail tenderloin.
+      </p>
     </div>
-  </nav>
+
+    <footer>FOOTER</footer>
+  </div>
+
 
   <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

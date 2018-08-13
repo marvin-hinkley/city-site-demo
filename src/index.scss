@@ -1,7 +1,41 @@
-@import '~bulma/bulma';
+//@import '~bulma/bulma';
 @import 'mixins';
 
-html, body {
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   background-color: gh-color('background');
   color: gh-color('text');
+}
+
+#flex-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  nav {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+  }
+  #body-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow-y: auto;
+    position: relative;
+  }
+  footer {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+  }
 }
