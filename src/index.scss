@@ -1,41 +1,91 @@
-//@import '~bulma/bulma';
-@import 'mixins';
+@import url('https://fonts.googleapis.com/css?family=EB+Garamond|Raleway');
 
 html {
   height: 100%;
 }
 body {
-  height: 100%;
-  overflow: hidden;
   margin: 0;
   padding: 0;
+  height: 100%;
+  background: #7a827d;
   box-sizing: border-box;
-  background-color: gh-color('background');
-  color: gh-color('text');
+  overflow: hidden;
 }
 
-#flex-container {
+a {
+  text-decoration: none;
+}
+
+.container {
   display: flex;
   flex-direction: column;
   height: 100%;
-  nav {
-    display: flex;
-    flex-direction: row;
-    flex-shrink: 0;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
+}
+
+.header {
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: #1D1E22;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-family: 'EB Garamond', serif;
+  font-size: 2rem;
+  img {
+    margin-bottom: -2em;
   }
-  #body-container {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    overflow-y: auto;
-    position: relative;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  width: 100%;
+  justify-content: space-around;
+  font-family: 'Raleway', sans-serif;
+  align-items: flex-end;
+  background-color: #4c5b51;
+  margin: 0;
+  padding: 0;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      display: inline-block;
+      a {
+        display: block;
+        text-decoration: none;
+        padding: 0.5em;
+        color: #fff;
+      }
+    }
   }
-  footer {
-    display: flex;
-    flex-direction: row;
-    flex-shrink: 0;
-  }
+}
+
+.slider {
+  min-height: 20em;
+  background-color: transparent;
+  background-position: center;
+  background-image: url('http://bridgehunter.com/photos/11/51/115134-L.jpg');
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+  position: relative;
+  color: #fff;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  color: #fff;
 }
