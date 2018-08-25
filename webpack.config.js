@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 const path = require('path');
@@ -38,6 +39,10 @@ module.exports = {
       template: './src/index.html',
       filename: 'index.html'
     }),
+    new CopyWebpackPlugin([
+      {from: './src/manifest.json', to: 'manifest.json'},
+      {from: './src/messaging/firebase-messaging-sw.js', to: 'firebase-messaging-sw.js'}
+    ]),
     new WebpackMd5Hash()
   ]
 };

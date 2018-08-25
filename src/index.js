@@ -1,10 +1,18 @@
 import './index.scss';
 import './auth/facebook.auth.js';
 import './firebase.js';
+const messaging = require('./messaging/firebase.messaging');
 
 (function(gh, $) {
-  var googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
   gh.auth = {};
+  messaging.init();
+  messaging.getToken();
+  
+  messaging.messageClient.onMessage(function(payload) {
+    console.log('Message recieved', payload);
+  });
 
   $('#google-auth').on('click', function(e) {
     firebase.auth().signInWithPopup(googleAuthProvider).then(function(result) {
@@ -13,7 +21,6 @@ import './firebase.js';
       console.log('Google auth error', error);
     });
   });
-
   gh.auth.checkFacebookLoginState = function() {
     FB.getLoginStatus(function(response) {
       console.log('FB Auth Response', response);
