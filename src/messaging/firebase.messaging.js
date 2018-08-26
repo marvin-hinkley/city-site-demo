@@ -11,8 +11,6 @@ function init() {
   messaging.onMessage((payload) => {
     console.log('FCM message received', payload);
   });
-
-  requestPermission();
 }
 
 function requestPermission() {
