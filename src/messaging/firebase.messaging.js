@@ -18,9 +18,11 @@ module.exports = {
 
   requestPermission: function() {
     messaging.requestPermission().then(() => {
-      console.log('Notification permission granted');
+      localStorage.setItem('fcmPermission', true);
       this.getToken();
+      console.log('Notification permission granted');
     }).catch((err) => {
+      localStorage.setItem('fcmPermission', false);
       console.log('Failed to obtain notification permission', err);
     });
   },
@@ -49,7 +51,7 @@ module.exports = {
 
   subscribeFCMTopic: function(topic) {
     let msgToken = this.getToken();
-    
+
     subscribeFCMTopic({topic: topic, token: msgToken}).then((result) => {
       console.log('response from subscribe function: ', result);
     }).catch((err) => {

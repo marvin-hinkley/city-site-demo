@@ -4,20 +4,35 @@ import './firebase.js';
 const messaging = require('./messaging/firebase.messaging');
 
 (function(gh, $) {
-  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-
+  //Initialization-----------------------------------------------------------//
   gh.auth = {};
   messaging.init();
 
-  $('#google-auth').on('click', function(e) {
+  //Click handlers-----------------------------------------------------------//
+  $('.fcm-subscription').on('click', (e) => {
+    let permission = localStorage.getItem('fcmPermission');
+
+    //incorrect 'checked' conditional
+    //topic needs to come from element attr
+    if(e.checked && permission) {
+      messaging.subscribeFCMTopic(e.topic);
+    } else {
+      messaging.unsubscribeFCMTopic(e.topic);
+    }
+  });
+
+  //Authentication stuff: Refactor into separate file?-----------------------//
+  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+  $('#google-auth').on('click', (e) => {
     firebase.auth().signInWithPopup(googleAuthProvider).then(function(result) {
       console.log('Google auth result', result);
-    }).catch(function(error) {
-      console.log('Google auth error', error);
+    }).catch((err) => {
+      console.log('Google auth error', err);
     });
   });
   gh.auth.checkFacebookLoginState = function() {
-    FB.getLoginStatus(function(response) {
+    FB.getLoginStatus((response) => {
       console.log('FB Auth Response', response);
       //statusChangeCallback(response);
     });
