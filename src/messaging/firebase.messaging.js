@@ -29,9 +29,9 @@ module.exports = {
 
   getToken: function(refresh) {
     let token = localStorage.getItem('fcmToken');
-    let refresh = refresh || false;
+    let isRefresh = refresh || false;
 
-    if (!refresh && typeof token != 'undefined') {
+    if (!isRefresh && typeof token != 'undefined') {
       return token;
     }
 
