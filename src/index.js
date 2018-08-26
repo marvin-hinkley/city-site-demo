@@ -1,7 +1,7 @@
 import './index.scss';
 
-const auth = require('./auth/gh.auth');
-const messaging = require('./messaging/firebase.messaging');
+import * as auth from './auth/gh.auth';
+import * as messaging from './messaging/firebase.messaging';
 
 (function(gh, $) {
   //Initialization-----------------------------------------------------------//
