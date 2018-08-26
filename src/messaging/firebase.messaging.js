@@ -19,7 +19,7 @@ module.exports = {
   requestPermission: function() {
     messaging.requestPermission().then(() => {
       console.log('Notification permission granted');
-      //get token
+      this.getToken();
     }).catch((err) => {
       console.log('Failed to obtain notification permission', err);
     });
@@ -48,8 +48,9 @@ module.exports = {
   },
 
   subscribeFCMTopic: function(topic) {
-    subscribeFCMTopic({topic: topic, token: msgToken})
-    .then((result) => {
+    let msgToken = this.getToken();
+    
+    subscribeFCMTopic({topic: topic, token: msgToken}).then((result) => {
       console.log('response from subscribe function: ', result);
     }).catch((err) => {
       console.log('error while subscribing: ', err);
@@ -57,8 +58,9 @@ module.exports = {
   },
 
   unsubscribeFCMTopic: function(topic) {
-    unsubscribeFCMTopic({topic: topic, token: msgToken})
-    .then((result) => {
+    let msgToken = this.getToken();
+
+    unsubscribeFCMTopic({topic: topic, token: msgToken}).then((result) => {
       console.log('response from unsubscribe function: ', result);
     }).catch((err) => {
       console.log('error while unsubscribing: ', err);
