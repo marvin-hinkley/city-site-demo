@@ -5,19 +5,9 @@ const messaging = require('./messaging/firebase.messaging');
 
 (function(gh, $) {
   const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-  const functions = firebase.functions();
-  const subscribeFCMTopic = functions.httpsCallable('subscribeFCMTopic');
 
   gh.auth = {};
-
-  messaging.init(function() {
-    messaging.getToken(function(msgToken) {
-      subscribeFCMTopic({topic: 'goldhill', token: msgToken})
-      .then(function(result) {
-        console.log('response from sub function: ', result);
-      });
-    });
-  });
+  messaging.init();
 
   $('#google-auth').on('click', function(e) {
     firebase.auth().signInWithPopup(googleAuthProvider).then(function(result) {

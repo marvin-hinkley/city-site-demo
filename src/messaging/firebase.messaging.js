@@ -1,38 +1,67 @@
 const messaging = firebase.messaging();
+const functions = firebase.functions();
+const subscribeFCMTopic = functions.httpsCallable('subscribeFCMTopic');
+const unsubscribeFCMTopic = functions.httpsCallable('unsubscribeFCMTopic');
 
 module.exports = {
-  messageClient: messaging,
-  init: function(cb) {
-    let thingy = this;
+  init: function() {
     messaging.usePublicVapidKey('BPoDMZ4BGXqN90zTQUJyBhQpg8Ttu2538fdDCnBP_0shrktn3Tef0tmIO_5qFx0VttOETcQeHxcSMJFqDA0dI90');
 
-    messaging.requestPermission().then(function() {
+    messaging.onTokenRefresh(() => {
+      this.getToken(true);
+    });
+
+    messaging.onMessage((payload) => {
+      console.log('FCM message received', payload);
+    });
+  },
+
+  requestPermission: function() {
+    messaging.requestPermission().then(() => {
       console.log('Notification permission granted');
-      thingy.getToken(function(){cb()});
-    }).catch(function(err) {
+      //get token
+    }).catch((err) => {
       console.log('Failed to obtain notification permission', err);
     });
-
-    messaging.onTokenRefresh(function() {
-      this.getToken(function(){});
-    });
-
-    messaging.onMessage(function(payload) {
-      console.log('Message recieved', payload);
-    });
-
-    cb();
   },
-  getToken: function(cb) {
-    messaging.getToken().then(function(currentToken) {
+
+  getToken: function(refresh) {
+    let token = localStorage.getItem('fcmToken');
+    let refresh = refresh || false;
+
+    if (!refresh && typeof token != 'undefined') {
+      return token;
+    }
+
+    messaging.getToken().then((currentToken) => {
       if(currentToken) {
-        console.log('Current token', currentToken);
-        cb(currentToken);
+        localStorage.setItem('fcmToken', currentToken);
+        console.log('Saved token', currentToken);
+
+        return currentToken;
       } else {
         console.log('No token available');
       }
-    }).catch(function(err) {
+    }).catch((err) => {
       console.log('Error while retreiving token', err);
+    });
+  },
+
+  subscribeFCMTopic: function(topic) {
+    subscribeFCMTopic({topic: topic, token: msgToken})
+    .then((result) => {
+      console.log('response from subscribe function: ', result);
+    }).catch((err) => {
+      console.log('error while subscribing: ', err);
+    });
+  },
+
+  unsubscribeFCMTopic: function(topic) {
+    unsubscribeFCMTopic({topic: topic, token: msgToken})
+    .then((result) => {
+      console.log('response from unsubscribe function: ', result);
+    }).catch((err) => {
+      console.log('error while unsubscribing: ', err);
     });
   }
 }
