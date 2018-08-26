@@ -64,3 +64,6 @@ yarn.lock
 # Compiled
 dist
 public
+
+# NPM
+package-lock.json
