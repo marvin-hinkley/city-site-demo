@@ -9,18 +9,14 @@ const messaging = require('./messaging/firebase.messaging');
   const subscribeFCMTopic = functions.httpsCallable('subscribeFCMTopic');
 
   gh.auth = {};
-  messaging.init();
-  let msgToken = messaging.getToken();
 
-  subscribeFCMTopic(JSON.stringify({
-    topic: 'goldhill',
-    token: msgToken
-  }).then((result) => {
-    console.log('response from sub function: ', result);
-  });
-
-  messaging.messageClient.onMessage(function(payload) {
-    console.log('Message recieved', payload);
+  messaging.init(function() {
+    messaging.getToken(function(msgToken) {
+      subscribeFCMTopic({topic: 'goldhill', token: msgToken})
+      .then(function(result) {
+        console.log('response from sub function: ', result);
+      });
+    });
   });
 
   $('#google-auth').on('click', function(e) {
