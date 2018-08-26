@@ -1,12 +1,13 @@
 import './index.scss';
-import './auth/facebook.auth.js';
-import './firebase.js';
+
+const auth = require('./auth/gh.auth');
 const messaging = require('./messaging/firebase.messaging');
 
 (function(gh, $) {
   //Initialization-----------------------------------------------------------//
-  gh.auth = {};
   messaging.init();
+  auth.init();
+  gh.auth = auth;
 
   //Click handlers-----------------------------------------------------------//
   $('.fcm-subscription').on('click', (e) => {
@@ -20,21 +21,4 @@ const messaging = require('./messaging/firebase.messaging');
       messaging.unsubscribeFCMTopic(e.topic);
     }
   });
-
-  //Authentication stuff: Refactor into separate file?-----------------------//
-  const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-
-  $('#google-auth').on('click', (e) => {
-    firebase.auth().signInWithPopup(googleAuthProvider).then(function(result) {
-      console.log('Google auth result', result);
-    }).catch((err) => {
-      console.log('Google auth error', err);
-    });
-  });
-  gh.auth.checkFacebookLoginState = function() {
-    FB.getLoginStatus((response) => {
-      console.log('FB Auth Response', response);
-      //statusChangeCallback(response);
-    });
-  };
 })(window.goldHill = window.goldHill || {}, jQuery);
