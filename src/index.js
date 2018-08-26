@@ -5,11 +5,20 @@ const messaging = require('./messaging/firebase.messaging');
 
 (function(gh, $) {
   const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+  const functions = firebase.functions();
+  const subscribeFCMTopic = functions.httpsCallable('subscribeFCMTopic');
 
   gh.auth = {};
   messaging.init();
-  messaging.getToken();
-  
+  let msgToken = messaging.getToken();
+
+  subscribeFCMTopic(JSON.stringify({
+    topic: 'goldhill',
+    token: msgToken
+  }).then((result) => {
+    console.log('response from sub function: ', result);
+  });
+
   messaging.messageClient.onMessage(function(payload) {
     console.log('Message recieved', payload);
   });
