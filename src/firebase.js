@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import 'firebase/firestore';
 
 var config = {
-  apiKey: "AIzaSyCR7D6ve0OOO-yY5GhaYPHDBoKnu0rcVmk",
+  apiKey: "redacted",
   authDomain: "gold-hill-demo.firebaseapp.com",
   databaseURL: "https://gold-hill-demo.firebaseio.com",
   projectId: "gold-hill-demo",

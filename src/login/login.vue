@@ -32,7 +32,9 @@
                 </form>
             </section>
             <footer class="modal-card-foot">
-                <a class="button is-success" @click="$emit('close')">login</a>
+                <a class="button is-success" @click="login">login</a>
+                <a class="button is-success" @click="loginGoogle">login</a>
+                <a class="button is-success" @click="loginFacebook">login</a>
                 <a class="button" @click="$emit('close')">Cancel</a>
             </footer>
         </div>

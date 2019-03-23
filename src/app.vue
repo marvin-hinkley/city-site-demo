@@ -19,6 +19,7 @@
                     <router-link class="navbar-item" to="/articles">articles</router-link>
                     <a class="navbar-item">online services</a>
                     <a class="navbar-item">community forum</a>
+                    <router-link class="navbar-item" to="/account">account</router-link>
                     <div class="navbar-item">
                         <div class="buttons">
                             <a class="button" @click="showLogin = true">login</a>
