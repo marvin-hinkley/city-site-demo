@@ -1,24 +1,16 @@
-import './index.scss';
+import Vue from "vue";
+import VueRouter from 'vue-router';
+import App from './app.vue';
+import routes from './routes/index';
 
-import * as auth from './auth/gh.auth';
-import * as messaging from './messaging/firebase.messaging';
+const router = new VueRouter({
+  mode: 'history',
+  routes: routes
+});
 
-(function(gh, $) {
-  //Initialization-----------------------------------------------------------//
-  messaging.init();
-  auth.init();
-  gh.auth = auth;
+Vue.use(VueRouter);
 
-  //Click handlers-----------------------------------------------------------//
-  $('.fcm-subscription').on('click', (e) => {
-    let permission = localStorage.getItem('fcmPermission');
-
-    //incorrect 'checked' conditional
-    //topic needs to come from element attr
-    if(e.checked && permission) {
-      messaging.subscribeFCMTopic(e.topic);
-    } else {
-      messaging.unsubscribeFCMTopic(e.topic);
-    }
-  });
-})(window.goldHill = window.goldHill || {}, jQuery);
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount('#app');

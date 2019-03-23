@@ -3,6 +3,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const path = require('path');
 
 module.exports = {
@@ -15,6 +16,24 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            'scss': [
+              'vue-style-loader',
+              'css-loader',
+              'sass-loader'
+            ],
+            'sass': [
+              'vue-style-loader',
+              'css-loader',
+              'sass-loader?indentedSyntax'
+            ]
+          }
+        }
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
@@ -24,11 +43,12 @@ module.exports = {
       {
         test: /\.scss$/,
         exclude: /node_modules/,
-        use: ['style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: ['vue-style-loader', 'style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       }
     ]
   },
   plugins: [
+    new VueLoaderPlugin(),
     new CleanWebpackPlugin('public', {} ),
     new MiniCssExtractPlugin({
       filename: 'style.[contenthash].css',
