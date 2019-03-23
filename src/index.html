@@ -7,59 +7,8 @@
   <link rel="stylesheet" href="<%=htmlWebpackPlugin.files.chunks.main.css %>">
 </head>
 <body class="has-navbar-fixed-top">
-  <section class="hero is-medium">
-    <div class="hero-head">
-        <nav class="navbar is-fixed-top" role="navigation">
-          <div class="navbar-brand">
-            <a class="navbar-item" href="http://localhost:5000">
-              <span>City of Gold Hill Oregon</span>
-            </a>
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </a>
-          </div>
-          <div class="navbar-menu">
-            <div class="navbar-start">
-              
-            </div>
-            <div class="navbar-end">
-              <a class="navbar-item">articles</a>
-              <a class="navbar-item">online services</a>
-              <a class="navbar-item">community forum</a>
-              <div class="navbar-item">
-                <div class="buttons">
-                  <a class="button">login</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-    </div>
-    
-    <div class="hero-body">
-      <div class="container has-text-centered">
-        <p class="title">Gold Hill</p>
-        <p class="subtitle">Awesomest city in the State of Jefferson</p>
-      </div>
-    </div>
-  
-    <div class="hero-foot">
-      <nav class="tabs is-boxed is-fullwidth">
-        <div class="container">
-          <ul class="left-menu">
-            <li><a href="#">city departments</a></li>
-            <li><a href="#">elected officials</a></li>
-            <li><a href="#">get involved</a></li>
-            <li><a href="#">maps & contacts</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
 
-  </section>
-  <div class="content"></div>
+  <div id="app"></div>
 
 <!-- <a href="#" id="google-auth"><img src="https://firebasestorage.googleapis.com/v0/b/gold-hill-demo.appspot.com/o/btn_google_signin_dark_pressed_web.png?alt=media&token=bdd34e15-ad23-4830-9840-7a3920cad8d8" /></a>
 <fb:login-button
@@ -68,7 +17,7 @@
   onlogin="goldHill.auth.checkFacebookLoginState();">
 </fb:login-button> -->
 
-  <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
+  <!-- <script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
