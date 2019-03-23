@@ -33,8 +33,8 @@
             </section>
             <footer class="modal-card-foot">
                 <a class="button is-success" @click="login">login</a>
-                <a class="button is-success" @click="loginGoogle">login</a>
-                <a class="button is-success" @click="loginFacebook">login</a>
+                <a class="button is-success" @click="loginGoogle">sign-in with google</a>
+                <a class="button is-success" @click="loginFacebook">sign-in with facebook</a>
                 <a class="button" @click="$emit('close')">Cancel</a>
             </footer>
         </div>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { auth, currentUser } from '../firebase';
+import { auth, googleAuthProvider, facebookAuthProvider, currentUser } from '../firebase';
 
 export default {
     name: 'login',
@@ -57,6 +57,32 @@ export default {
             auth.signInWithEmailAndPassword(this.email, this.password).then(
                 (user) => {
                     console.log('logged in');
+                    this.$store.commit('setCurrentUser', user);
+                    this.$store.dispatch('fetchUserProfile');
+                },
+                (err) => {
+                    console.log('error', err);
+                }
+            );
+        },
+        loginGoogle: () => {
+            auth.signInWithPopup(googleAuthProvider).then(
+                (result) => {
+                    console.log('logged in');
+                    this.$store.commit('setCurrentUser', result.user);
+                    this.$store.dispatch('fetchUserProfile');
+                },
+                (err) => {
+                    console.log('error', err);
+                }
+            );
+        },
+        loginFacebook: () => {
+            auth.signInWithPopup(facebookAuthProvider).then(
+                (result) => {
+                    console.log('logged in');
+                    this.$store.commit('setCurrentUser', result.user);
+                    this.$store.dispatch('fetchUserProfile');
                 },
                 (err) => {
                     console.log('error', err);
