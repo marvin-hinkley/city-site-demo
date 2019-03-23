@@ -21,19 +21,30 @@
                     <a class="navbar-item">community forum</a>
                     <div class="navbar-item">
                         <div class="buttons">
-                            <a class="button">login</a>
+                            <a class="button" @click="showLogin = true">login</a>
                         </div>
                     </div>
                 </div>
             </div>
         </nav>
         <router-view />
+        <login v-show="showLogin" @close="showLogin = false" />
     </div>
 </template>
 
 <script>
+import Login from './login/login.vue';
+
 export default {
-    name: 'app'
+    name: 'app',
+    components: {
+        'login': Login
+    },
+    data: () => {
+        return {
+            showLogin: false
+        }
+    }
 }
 </script>
 

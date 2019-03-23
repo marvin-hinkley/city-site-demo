@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import 'firebase/firestore';
 
 var config = {
-  apiKey: "redacted",
+  apiKey: "AIzaSyCR7D6ve0OOO-yY5GhaYPHDBoKnu0rcVmk",
   authDomain: "gold-hill-demo.firebaseapp.com",
   databaseURL: "https://gold-hill-demo.firebaseio.com",
   projectId: "gold-hill-demo",
@@ -14,7 +14,6 @@ firebase.initializeApp(config);
 const database = firebase.firestore();
 const auth = firebase.auth();
 const currentUser = auth.currentUser;
-database.settings({ timestampsInSnapshots: true });
 
 export {
   database,
