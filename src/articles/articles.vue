@@ -1,5 +1,5 @@
 <template>
-    
+    <span class="title">ARTICLES</span>
 </template>
 
 <script>
