@@ -1,68 +1,66 @@
 import { database, storage } from "~/firebase";
 
 const articles = {
-    getAll: (cb) => {
-        database
-        .collection('fl_content')
-        .where('_fl_meta_.schema', '==', 'article')
-        .get()
-        .then(querySnapshot => {
-            let articleList = [];
+    getAll: () => {
+        return new Promise((resolve, reject) => {
+            database
+            .collection('fl_content')
+            .where('_fl_meta_.schema', '==', 'article')
+            .get()
+            .then(querySnapshot => {
+                let articleList = [];
 
-            querySnapshot.forEach(article => {
-                let articleData = article.data();
-                console.log('article', articleData);
+                querySnapshot.forEach(article => {
+                    let articleData = article.data();
+                    console.log('article', articleData);
 
-                if (articleData.headerImage[0]) {
-                    articleData.headerImage[0]
-                    .get()
-                    .then(response => {
-                        let responseData = response.data();
-                        console.log('header image url response', responseData);
+                    if (articleData.headerImage[0]) {
+                        articleData.headerImage[0]
+                        .get()
+                        .then(response => {
+                            let responseData = response.data();
 
-                        let url = images.getId(responseData.file, url => {
-                            console.log('header image url', url);
-
-                            articleList.push({
-                                content: articleData.mainContent,
-                                tagline: articleData.tagline,
-                                headline: articleData.headline,
-                                headerimage: url,
-                                featured: articleData.featured,
-                                tags: articleData.tags
+                            images.getById(responseData.file)
+                            .then(url => {
+                                articleList.push({
+                                    content: articleData.mainContent,
+                                    tagline: articleData.tagline,
+                                    headline: articleData.headline,
+                                    headerimage: url,
+                                    featured: articleData.featured,
+                                    tags: articleData.tags
+                                });
                             });
+                        })
+                        .catch(err => reject(err));
+                    } else {
+                        articleList.push({
+                            content: articleData.mainContent,
+                            tagline: articleData.tagline,
+                            headline: articleData.headline,
+                            featured: articleData.featured,
+                            tags: articleData.tags
                         });
-                    });
-                } else {
-                    articleList.push({
-                        content: articleData.mainContent,
-                        tagline: articleData.tagline,
-                        headline: articleData.headline,
-                        featured: articleData.featured,
-                        tags: articleData.tags
-                    });
-                }
-            });
+                    }
+                });
 
-            cb(articleList);
-        })
-        .catch(err => console.log('error', err));
-    },
-    getFeatured: (tag) => {
-
+                resolve(articleList);
+            })
+            .catch(err => reject(err));
+        });
     }
 }
 
 const images = {
-    getId: (filename, cb) => {
-        const url = storage
-        .ref()
-        .child(`flamelink/media/${filename}`)
-        .getDownloadURL().then(url => {
-            console.log('url req response', url);
-            cb(url);
-        })
-        .catch(err => console.log('error', err));
+    getById: (filename) => {
+        return new Promise((resolve, reject) => {
+            storage.ref()
+            .child(`flamelink/media/${filename}`)
+            .getDownloadURL().then(url => {
+                resolve(url);
+            })
+            .catch(err => reject(err));
+        });
     }
 }
 

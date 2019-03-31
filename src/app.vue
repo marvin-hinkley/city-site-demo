@@ -19,8 +19,9 @@
                     <router-link class="navbar-item" to="/articles">articles</router-link>
                     <a class="navbar-item">online services</a>
                     <a class="navbar-item">community forum</a>
-                    <router-link class="navbar-item" to="/account">account</router-link>
-                    <component :is="loginComponent" />
+                    <transition mode="out-in" name="fade">
+                        <component :is="loginComponent" />
+                    </transition>
                 </div>
             </div>
         </nav>
@@ -50,5 +51,10 @@ export default {
 </script>
 
 <style lang="scss">
-
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+    }
 </style>

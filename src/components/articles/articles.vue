@@ -21,9 +21,11 @@ import { articles } from "~/flamelink";
 export default {
     name: 'articles',
     created() {
-        articles.getAll(articleList => {
+        articles.getAll()
+        .then(articleList => {
             this.articles = articleList;
-        });
+        })
+        .catch(err => console.log('problem retrieving articles', err));
     },
     data() {
         return {

@@ -24,11 +24,36 @@ const currentUser = auth.currentUser;
 const database = firebase.firestore();
 const storage = firebase.storage();
 
+const getPrimaryAuthProvider = function(error) {
+  return new Promise((resolve, reject) => {
+    auth.fetchSignInMethodsForEmail(error.email)
+    .then(providers => {
+      resolve(getProvider(providers[0]));
+    })
+    .catch(err => reject(err));
+  });
+}
+
+function getProvider(authMethod) {
+  switch (authMethod) {
+    case 'google.com':
+      return googleAuthProvider;
+      break;
+    case 'password':
+      return 'password';
+    case 'facebook':
+      return facebookAuthProvider;
+    default:
+      break;
+  }
+}
+
 export {
   database,
   storage,
   auth,
   googleAuthProvider,
   facebookAuthProvider,
-  currentUser
+  currentUser,
+  getPrimaryAuthProvider
 }

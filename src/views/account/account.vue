@@ -13,10 +13,12 @@
                 <p class="menu-label">COMMUNICATION</p>
                 <ul class="menu-list">
                     <li><router-link to="/account/community">community</router-link></li>
-                    <li><router-link to="/account/settings">notifications</router-link></li>
+                    <li><router-link to="/account/notifications">notifications</router-link></li>
                 </ul>
             </aside>
-            <router-view class="column" />
+            <transition name="fade" mode="out-in">
+                <router-view class="column" />
+            </transition>
         </div>
     </div>
 </template>

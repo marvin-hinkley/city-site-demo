@@ -7,7 +7,10 @@
                 <button class="delete" @click="$emit('close')"></button>
             </header>
             <section class="modal-card-body">
-                <form @submit.prevent>
+                <div v-if="linkAccount" class="notification">
+                    <p>Please log into your primary authentication provider to link your existing account.</p>
+                </div>
+                <form v-else @submit.prevent>
                     <div class="field">
                         <label class="label">email address</label>
                         <div class="control has-icons-left has-icons-right">
@@ -32,17 +35,19 @@
                 </form>
             </section>
             <footer class="modal-card-foot">
-                <a class="button is-success" @click="login">login</a>
-                <a class="button is-success" @click="loginGoogle">sign-in with google</a>
-                <a class="button is-success" @click="loginFacebook">sign-in with facebook</a>
-                <a class="button" @click="$emit('close')">Cancel</a>
+                <template v-if="!linkAccount">
+                    <a class="button is-success" @click="login">login</a>
+                    <a class="button is-success" @click="loginGoogle">sign-in with google</a>
+                    <a class="button is-success" @click="loginFacebook">sign-in with facebook</a>
+                </template>
+                <a v-else class="button is-success" @click="loginLinkAccount">Continue</a>
             </footer>
         </div>
     </div>
 </template>
 
 <script>
-import { auth, googleAuthProvider, facebookAuthProvider, currentUser } from '~/firebase';
+import { auth, googleAuthProvider, facebookAuthProvider, currentUser, getPrimaryAuthProvider } from '~/firebase';
 import { mapMutations } from "vuex";
 
 export default {
@@ -50,7 +55,10 @@ export default {
     data: () => {
         return {
             email: '',
-            password: ''
+            password: '',
+            linkAccount: false,
+            linkProvider: googleAuthProvider,
+            linkAccountCredential: null
         };
     },
     methods: {
@@ -59,39 +67,50 @@ export default {
         }),
         login: function() {
             auth.signInWithEmailAndPassword(this.email, this.password).then(
-                (user) => {
-                    console.log('logged in', user);
-                    this.setUser(user);
-                    this.$store.dispatch('fetchUserProfile');
-                },
-                (err) => {
-                    console.log('error', err);
-                }
+                this.updateUser,
+                this.handleAccountLink
             );
         },
         loginGoogle: function() {
             auth.signInWithPopup(googleAuthProvider).then(
-                (result) => {
-                    console.log('logged in', result.user);
-                    this.setUser(result.user);
-                    this.$store.dispatch('fetchUserProfile');
-                },
-                (err) => {
-                    console.log('error', err);
-                }
+                this.updateUser,
+                this.handleAccountLink
             );
         },
         loginFacebook: function() {
             auth.signInWithPopup(facebookAuthProvider).then(
-                (result) => {
-                    console.log('logged in', result);
-                    this.setUser(result.user);
-                    this.$store.dispatch('fetchUserProfile');
-                },
-                (err) => {
-                    console.log('error', err);
-                }
+                this.updateUser,
+                this.handleAccountLink
             );
+        },
+        loginLinkAccount: function() {
+            auth.signInWithPopup(this.linkProvider)
+            .then(result => {
+                result.user
+                .linkAndRetrieveDataWithCredential(this.linkAccountCredential)
+                .then(userCredential => {
+                    this.updateUser(result);
+                    this.$emit('close');
+                })
+                .catch(err => console.log('problem linking account', err));
+            })
+            .catch(err => console.log('problem linking account', err));
+        },
+        handleAccountLink: function(err) {
+            if (err.code === 'auth/account-exists-with-different-credential') {
+                getPrimaryAuthProvider(err)
+                .then(provider => {
+                    this.linkProvider = provider;
+                    this.linkAccount = true;
+                    this.linkAccountCredential = err.credential;
+                })
+                .catch(err => console.log('problem linking account', err));
+            }
+        },
+        updateUser: function(result) {
+            this.setUser(result.user);
+            this.$store.dispatch('fetchUserProfile');
+            this.$emit('close');
         }
     }
 }
