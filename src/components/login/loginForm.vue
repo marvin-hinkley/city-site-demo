@@ -43,9 +43,10 @@
 
 <script>
 import { auth, googleAuthProvider, facebookAuthProvider, currentUser } from '~/firebase';
+import { mapMutations } from "vuex";
 
 export default {
-    name: 'login',
+    name: 'loginForm',
     data: () => {
         return {
             email: '',
@@ -53,11 +54,14 @@ export default {
         };
     },
     methods: {
-        login: () => {
+        ...mapMutations({
+            setUser: 'setCurrentUser'
+        }),
+        login: function() {
             auth.signInWithEmailAndPassword(this.email, this.password).then(
                 (user) => {
-                    console.log('logged in');
-                    this.$store.commit('setCurrentUser', user);
+                    console.log('logged in', user);
+                    this.setUser(user);
                     this.$store.dispatch('fetchUserProfile');
                 },
                 (err) => {
@@ -65,11 +69,11 @@ export default {
                 }
             );
         },
-        loginGoogle: () => {
+        loginGoogle: function() {
             auth.signInWithPopup(googleAuthProvider).then(
                 (result) => {
-                    console.log('logged in');
-                    this.$store.commit('setCurrentUser', result.user);
+                    console.log('logged in', result.user);
+                    this.setUser(result.user);
                     this.$store.dispatch('fetchUserProfile');
                 },
                 (err) => {
@@ -77,11 +81,11 @@ export default {
                 }
             );
         },
-        loginFacebook: () => {
+        loginFacebook: function() {
             auth.signInWithPopup(facebookAuthProvider).then(
                 (result) => {
-                    console.log('logged in');
-                    this.$store.commit('setCurrentUser', result.user);
+                    console.log('logged in', result);
+                    this.setUser(result.user);
                     this.$store.dispatch('fetchUserProfile');
                 },
                 (err) => {

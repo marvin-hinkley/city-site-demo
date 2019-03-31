@@ -20,30 +20,30 @@
                     <a class="navbar-item">online services</a>
                     <a class="navbar-item">community forum</a>
                     <router-link class="navbar-item" to="/account">account</router-link>
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button" @click="showLogin = true">login</a>
-                        </div>
-                    </div>
+                    <component :is="loginComponent" />
                 </div>
             </div>
         </nav>
         <router-view />
-        <login v-show="showLogin" @close="showLogin = false" />
     </div>
 </template>
 
 <script>
-import Login from '~/login/login.vue';
+import Login from 'components/login/login.vue';
+import LoggedIn from 'components/login/loggedIn.vue';
 
 export default {
     name: 'app',
     components: {
-        'login': Login
+        'login': Login,
+        'loggedIn': LoggedIn
     },
-    data: () => {
-        return {
-            showLogin: false
+    computed: {
+        loginComponent() {
+            if (this.$store.state.currentUser == null) {
+                return 'login';
+            }
+            return 'loggedIn';
         }
     }
 }

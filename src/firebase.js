@@ -2,12 +2,12 @@ import firebase from 'firebase';
 import 'firebase/firestore';
 
 const config = {
-  apiKey: "redacted",
+  apiKey: "AIzaSyCR7D6ve0OOO-yY5GhaYPHDBoKnu0rcVmk",
   authDomain: "gold-hill-demo.firebaseapp.com",
   databaseURL: "https://gold-hill-demo.firebaseio.com",
   projectId: "gold-hill-demo",
   storageBucket: "gold-hill-demo.appspot.com",
-  messagingSenderId: "redacted"
+  messagingSenderId: "822821659649"
 };
 const firebaseApp = firebase.initializeApp(config);
 

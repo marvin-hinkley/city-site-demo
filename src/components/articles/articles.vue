@@ -3,7 +3,7 @@
         <div v-for="article in articles" :key="article.id">
             <div class="card">
                 <div class="card-image">
-                    <figure><img v-bind:src="article.headerimage" alt="altText"/></figure>
+                    <figure><img :src="article.headerimage" alt="altText"/></figure>
                 </div>
                 <div class="card-content">
                     <span class="title">{{article.headline}}</span>
@@ -21,7 +21,7 @@ import { articles } from "~/flamelink";
 export default {
     name: 'articles',
     created() {
-        this.articles = articles.getAll(articleList => {
+        articles.getAll(articleList => {
             this.articles = articleList;
         });
     },

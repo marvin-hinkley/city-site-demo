@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 Vue.use(Vuex);
-const firebase = require('../firebase');
 
 export default new Vuex.Store({
     state: {
