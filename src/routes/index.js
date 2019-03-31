@@ -1,9 +1,9 @@
 import Vue from "vue";
 import VueRouter from 'vue-router';
-import Home from '../home/home.vue';
-import Articles from '../articles/articles.vue';
-import NotFound from '../errors/NotFound.vue';
-import Account from '../account/account.vue';
+import Home from 'views/home.vue';
+import Articles from 'components/articles/articles.vue';
+import NotFound from 'views/errors/NotFound.vue';
+import Account from 'views/account.vue';
 
 Vue.use(VueRouter);
 const firebase = require('../firebase');

@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { auth, googleAuthProvider, facebookAuthProvider, currentUser } from '../firebase';
+import { auth, googleAuthProvider, facebookAuthProvider, currentUser } from '~/firebase';
 
 export default {
     name: 'login',

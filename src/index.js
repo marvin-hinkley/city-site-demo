@@ -1,7 +1,7 @@
 import Vue from "vue";
-import App from './app.vue';
-import router from './routes/index';
-import store from './state/index';
+import App from '~/app.vue';
+import router from '~/routes/index';
+import store from '~/state/index';
 
 const firebase = require('./firebase');
 let app;

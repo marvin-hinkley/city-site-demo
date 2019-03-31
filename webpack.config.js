@@ -8,7 +8,7 @@ const path = require('path');
 
 module.exports = {
   entry: { main: './src/index.js' },
-  devtool: 'inline-source-map',
+  devtool: 'eval-source-map',
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: '[name].[chunkhash].js'
@@ -46,6 +46,14 @@ module.exports = {
         use: ['vue-style-loader', 'style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       }
     ]
+  },
+  resolve: {
+    alias: {
+      views: path.resolve(__dirname, 'src/views/'),
+      components: path.resolve(__dirname, 'src/components/'),
+      sass: path.resolve(__dirname, 'src/sass/'),
+      '~': path.resolve(__dirname, 'src/')
+    }
   },
   plugins: [
     new VueLoaderPlugin(),

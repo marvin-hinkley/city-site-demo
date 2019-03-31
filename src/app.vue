@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import Login from './login/login.vue';
+import Login from '~/login/login.vue';
 
 export default {
     name: 'app',
